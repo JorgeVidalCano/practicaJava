@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -7,6 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
+
       <Pane prefHeight="313.0" prefWidth="700.0">
          <children>
             <Label id="title" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="7.0" prefHeight="32.0" prefWidth="700.0" text="Rv Renting" textFill="#000000ea">
@@ -22,7 +24,22 @@
                   <Font name="Arial" size="16.0" />
                </font>
             </Label>
-         </children></Pane>
+            <VBox layoutX="588.0" layoutY="16.0" prefHeight="220.0" prefWidth="100.0">
+               <children>
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#displayAddNew" prefHeight="56.0" prefWidth="105.0" text="Add new">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="updatableFieldButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#displayEdit" prefHeight="56.0" prefWidth="105.0" text="Edit">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
       <Pane layoutX="31.0" layoutY="308.0" prefHeight="200.0" prefWidth="650.0">
          <children>
             <GridPane prefHeight="200.0" prefWidth="650.0">
@@ -66,7 +83,7 @@
             </GridPane>
          </children>
       </Pane>
-      <HBox layoutX="135.0" layoutY="543.0" prefHeight="54.0" prefWidth="431.0" styleClass="selectButtons">
+      <HBox fx:id="navigationButtons" layoutX="135.0" layoutY="543.0" prefHeight="54.0" prefWidth="431.0" styleClass="selectButtons">
          <children>
             <Button mnemonicParsing="false" onAction="#handleFirstVehicule" prefHeight="48.0" prefWidth="107.0" styleClass="selectButtons" text="First">
                <font>
@@ -88,6 +105,24 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-         </children></HBox>
+         </children>
+      </HBox>
+      <HBox fx:id="editButtons" layoutX="175.0" layoutY="543.0" prefHeight="48.0" prefWidth="328.0" styleClass="selectButtons" visible="false">
+         <children>
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#displayCancelEdit" prefHeight="48.0" prefWidth="107.0" styleClass="selectButtons" text="Cancel">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" graphicTextGap="12.0" layoutX="224.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleUpdateVehicle" pickOnBounds="false" prefHeight="48.0" prefWidth="107.0" styleClass="selectButtons" text="Update" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="110.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

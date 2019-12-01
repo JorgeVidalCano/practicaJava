@@ -10,10 +10,7 @@ import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
@@ -26,15 +23,8 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class lecturaArchivosModel {
-    //private final static String filename = "Informacion/Roadtrek.xml";
-    //Path path = Paths.get(filename);
 
-    //lecturaArchivos information = new lecturaArchivosModel();
-    //todosVehiculos = information.getVehicules();
-
-    // do the same with the other route
     private final static String folder = "Informacion";
-
     private static int position = 0;
     private ArrayList<String> docsXml = new ArrayList<>();
     private ArrayList<ArrayList<String>> todosVehiculos = new ArrayList<>();
@@ -43,10 +33,15 @@ public class lecturaArchivosModel {
         this.docsXml = selectXMLs();
     }
 
-    /*public ArrayList<ArrayList<String>> getVehicules () throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        // return all cars in an arraylist<arraylist<String>>
-        return reading();
-    }*/
+    public ArrayList<String> getIds(){
+        // returns only the ids
+        ArrayList<String> onlyIds= new ArrayList<>();
+        for(int i = 0; i < this.todosVehiculos.size(); i++){
+            onlyIds.add(this.todosVehiculos.get(i).get(1));
+        }
+        return onlyIds;
+    }
+
     public void getVehicules () throws ParserConfigurationException, IOException, SAXException, TransformerException {
         // Reads all cars
         reading();
@@ -74,7 +69,7 @@ public class lecturaArchivosModel {
     }
 
     public void registrationNewVehicule (String idVeh, String updatable, String name, String description, String price, String web, String imagen) throws ParserConfigurationException, TransformerException {
-
+        // Writes a new xml with a new vehicle
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -86,11 +81,7 @@ public class lecturaArchivosModel {
 
         document.appendChild(root);
 
-        /*Element idXml = document.createElement("id"); // should be attribute
-        idXml.setTextContent(idVeh);
-        root.appendChild(idXml);*/
-
-        Element nameXml = document.createElement("name"); // should be attribute
+        Element nameXml = document.createElement("name");
         nameXml.setTextContent(name);
         root.appendChild(nameXml);
 
@@ -117,9 +108,10 @@ public class lecturaArchivosModel {
         Path path = Paths.get(folder);
 
         StreamResult streamResult = new StreamResult(path.toFile() + "/" + name + ".xml");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.transform(domSource, streamResult);
 
-        System.out.println("New vehicule registered");
+        System.out.println("New vehicle registered");
 
     }
 
@@ -175,7 +167,8 @@ public class lecturaArchivosModel {
             Node node = nList.item(temp);
             if (node.getNodeType() == Node.ELEMENT_NODE){
                 Element datoVehiculo = (Element) node;
-                vehiculo.add(path.toFile().getName().replace(".xml", ""));
+                //vehiculo.add(path.toFile().getName().replace(".xml", ""));
+                vehiculo.add(path.toFile().getName());
                 vehiculo.add(String.valueOf(datoVehiculo.getAttribute("id")));
                 vehiculo.add(datoVehiculo.getAttribute("updatable"));
                 vehiculo.add(datoVehiculo.getElementsByTagName("name").item(0).getTextContent());
