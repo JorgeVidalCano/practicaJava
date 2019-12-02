@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 public class lecturaArchivosModel {
 
     private final static String folder = "Informacion";
-    private static int position = 0;
+    //private static int position = 0;
     private ArrayList<String> docsXml = new ArrayList<>();
     private ArrayList<ArrayList<String>> todosVehiculos = new ArrayList<>();
 
@@ -40,32 +40,6 @@ public class lecturaArchivosModel {
             onlyIds.add(this.todosVehiculos.get(i).get(1));
         }
         return onlyIds;
-    }
-
-    public void getVehicules () throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        // Reads all cars
-        reading();
-    }
-
-    public ArrayList<String> getFirstVehicule () {
-        position = 0;
-        return this.todosVehiculos.get(position);
-    }
-
-    public ArrayList<String> getNextPreviousVehicule (int p) {
-        position += p;
-
-        if(position < 0){
-            position = 0;
-        }else if (position == this.todosVehiculos.size()){
-            position = this.todosVehiculos.size() - 1;
-        }
-        return this.todosVehiculos.get(position);
-    }
-
-    public ArrayList<String> getLastVehicule () {
-        position = this.todosVehiculos.size() - 1;
-        return this.todosVehiculos.get(position);
     }
 
     public void registrationNewVehicule (String idVeh, String updatable, String name, String description, String price, String web, String imagen) throws ParserConfigurationException, TransformerException {
@@ -115,7 +89,26 @@ public class lecturaArchivosModel {
 
     }
 
-    private ArrayList<ArrayList<String>> reading() throws ParserConfigurationException, SAXException, TransformerException, IOException {
+    public void upDateVehicle (String name){
+
+    }
+
+/*    public void deleteVehicle(String name){
+        // deletes the xml and png.
+        File xmlFile = new File("Informacion/"+ name +".xml");
+        File imgFile = new File("Informacion/"+ name +".png");
+
+        if(xmlFile.delete() & imgFile.delete())
+        {
+            System.out.println("File deleted successfully");
+        }
+        else
+        {
+            System.out.println("Failed to delete the file");
+        }
+    }*/
+
+    public ArrayList<ArrayList<String>> getVehicules() throws ParserConfigurationException, SAXException, TransformerException, IOException {
         // return all cars in an arraylist<arraylist<String>>
         for (String filename:this.docsXml) {
             Path path = Paths.get(filename);
@@ -167,7 +160,7 @@ public class lecturaArchivosModel {
             Node node = nList.item(temp);
             if (node.getNodeType() == Node.ELEMENT_NODE){
                 Element datoVehiculo = (Element) node;
-                //vehiculo.add(path.toFile().getName().replace(".xml", ""));
+
                 vehiculo.add(path.toFile().getName());
                 vehiculo.add(String.valueOf(datoVehiculo.getAttribute("id")));
                 vehiculo.add(datoVehiculo.getAttribute("updatable"));

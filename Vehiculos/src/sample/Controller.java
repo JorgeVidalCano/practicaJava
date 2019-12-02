@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -27,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static java.lang.Integer.valueOf;
 
@@ -54,10 +56,19 @@ public class Controller {
     private javafx.scene.control.CheckBox updatableField;
 
     @FXML
+    private Pane inputs;
+
+    //@FXML
+    //private Pane header;
+
+    @FXML
     private HBox editButtons;
 
     @FXML
     private HBox navigationButtons;
+
+    @FXML
+    private Button startRentingButton;
 
     @FXML
     private Button addNewButton;
@@ -65,66 +76,101 @@ public class Controller {
     @FXML
     private Button updatableFieldButton;
 
-    private void showFirstVehicule() throws ParserConfigurationException, TransformerException, SAXException, IOException {
-        // Return first vehicule
+    private ArrayList<ArrayList<String>> vehicles = new ArrayList();
+    private static int position = 0;
+
+    public Controller () throws ParserConfigurationException, TransformerException, SAXException, IOException {
         lecturaArchivosModel Rv = new lecturaArchivosModel();
-        Rv.getVehicules();
-        printLabels(Rv.getFirstVehicule());
+        this.vehicles = Rv.getVehicules();
     }
 
-    private void showLastVehicule() throws ParserConfigurationException, TransformerException, SAXException, IOException {
-        // Returns last vehicule
-        lecturaArchivosModel Rv = new lecturaArchivosModel();
-        Rv.getVehicules();
-        printLabels(Rv.getLastVehicule());
+    private void showFirstVehicule() throws IOException {
+        // Return first vehicle
+        position = 0;
+        printLabels(this.vehicles.get(position));
     }
 
-    private void showNextPreviousVehicule(int position) throws ParserConfigurationException, TransformerException, SAXException, IOException {
-        // Return next vehicule
-        lecturaArchivosModel Rv = new lecturaArchivosModel();
-        Rv.getVehicules();
-        printLabels(Rv.getNextPreviousVehicule(position));
+    private void showLastVehicule() throws IOException {
+        // Return last vehicle
+        position = this.vehicles.size() - 1;
+        printLabels(this.vehicles.get(position));
     }
 
-    private void printLabels(ArrayList<String> vehicule) throws FileNotFoundException {
-        // Prints the vehicule information return in each situation
-        fileName = vehicule.get(0);
-        updatableFieldButton.setDisable(!Boolean.parseBoolean(vehicule.get(2)));
-        idField.setText(vehicule.get(1));
-        nameField.setText(vehicule.get(3));
-        descriptionField.setText(vehicule.get(4));
-        priceField.setText(vehicule.get(5));
+    private void showNextPreviousVehicule(int pos) throws IOException {
+        // Return next/previous vehicle
 
-        FileInputStream input = new FileInputStream("Informacion/" + vehicule.get(7));
+        position += pos;
+
+        System.out.println(position);
+        if (nameField.getText().isEmpty()){
+            position = 0;
+        }
+
+        if(position < 0) {
+            Window owner = inputs.getScene().getWindow();
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Info.", "There are no more products.");
+            position = 0;
+            return;
+        }
+
+        if(position > this.vehicles.size() - 1){
+            Window owner = inputs.getScene().getWindow();
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Info.", "There are no more products.");
+            position = this.vehicles.size() - 1;
+            return;
+        }
+        printLabels(this.vehicles.get(position));
+    }
+
+    private void printLabels(ArrayList<String> vehicle) throws FileNotFoundException {
+        // Prints the vehicle information return in each situation
+        fileName = vehicle.get(0);
+        updatableFieldButton.setDisable(!Boolean.parseBoolean(vehicle.get(2)));
+        idField.setText(vehicle.get(1));
+        nameField.setText(vehicle.get(3));
+        descriptionField.setText(vehicle.get(4));
+        priceField.setText(vehicle.get(5));
+
+        FileInputStream input = new FileInputStream("Informacion/" + vehicle.get(7));
         Image image = new Image(input);
         imagenField.setImage(image);
-        webField.setText(vehicule.get(6));
+        webField.setText(vehicle.get(6));
     }
 
-    public void handleFirstVehicule(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void handleSortMethod(String method){
+        sortById("id");
+    }
+
+    private void sortById(String method){
+        // do it in lecturaArchivosModel
+        //Collections.sort(this.vehicles.get(0));
+    }
+
+    public void handleFirstVehicule(javafx.event.ActionEvent actionEvent) throws IOException {
         showFirstVehicule();
     }
 
-    public void handleLastVehicule(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void handleLastVehicule(javafx.event.ActionEvent actionEvent) throws IOException {
         showLastVehicule();
     }
 
-    public void handleNextVehicule(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void handleNextVehicule(javafx.event.ActionEvent actionEvent) throws IOException {
         showNextPreviousVehicule(1);
     }
 
-    public void handlePreviousVehicule(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void handlePreviousVehicule(javafx.event.ActionEvent actionEvent) throws IOException {
         showNextPreviousVehicule(-1);
     }
 
     public void handleRegistrationNewVehicule(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException, TransformerException{
         // Creates a new vehicle
+
+        //TODO import imagen
         String idVeh;
 
         lecturaArchivosModel Rv = new lecturaArchivosModel();
         // Alert if an input is empty or if price is not money etc
         Window owner = addNewButton.getScene().getWindow();
-
         if(nameField.getText().isEmpty()){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Please enter a name.");
             return;
@@ -154,7 +200,51 @@ public class Controller {
         Rv.registrationNewVehicule(idVeh, toString().valueOf(updatableField.isSelected()), nameField.getText(), descriptionField.getText(), priceField.getText(), webField.getText(), "no-imagen.png");
 
         AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "New vehicle added", "\nName: " + nameField.getText());
-        displayMainWindow();
+        changeView("start.fxml");
+    }
+
+    public void handleUpdateVehicle(javafx.event.ActionEvent actionEvent) throws IOException{
+        // update the given vehicle
+        lecturaArchivosModel Rv = new lecturaArchivosModel();
+        Rv.upDateVehicle(fileName);
+    }
+
+    public void handleDeleteVehicle(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, TransformerException, SAXException, IOException {
+        // deletes the xml and png.
+        // TODO change img field to the real one right now is a substitution
+        Window owner = editButtons.getScene().getWindow();
+
+        if(nameField.getText().isEmpty()){
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle delete", "No vehicle has been selected yet.");
+            return;
+        }
+        
+        AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Vehicle delete", "Are you sure you want to delete " + fileName);
+        File xmlFile = new File("Informacion/"+ fileName);
+        File imgFile = new File("Informacion/"+ fileName.replace("xml", "png"));
+
+        if (this.vehicles.get(position).get(7).equals("no-imagen.png")) {
+            if (xmlFile.delete()) {
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Vehicle delete", fileName + " has been successfully deleted.");
+                reStartApp();
+            } else {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle error", " something went wrong deleting" + fileName);
+            }
+        }else{
+            if (xmlFile.delete() & imgFile.delete()) {
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Vehicle delete", fileName + " has been successfully deleted.");
+                reStartApp();
+            } else {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle error", " something went wrong deleting" + fileName);
+            }
+        }
+    }
+
+    private void reStartApp() throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        // Rereads the info when changes are made.
+        lecturaArchivosModel Rv = new lecturaArchivosModel();
+        this.vehicles = Rv.getVehicules();
+        showFirstVehicule();
     }
 
     private String selectUniqueId() throws ParserConfigurationException, TransformerException, SAXException, IOException {
@@ -170,6 +260,7 @@ public class Controller {
     }
 
     private void enableEditMode(boolean t, boolean f) throws IOException{
+        // show and hide some fields
         navigationButtons.setVisible(f);
         editButtons.setVisible(t);
         nameField.setEditable(t);
@@ -190,16 +281,17 @@ public class Controller {
         System.out.println("updated done: " + nameField.getText() );
     }
 
-    public void displayAddNew() throws IOException {
-        Stage stage = (Stage) nameField.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("newVehicule.fxml"));
-        stage.setScene(new Scene(root, 700, 600));
-        stage.show();
+    public void handleNewVehicleWindow() throws IOException{
+        changeView("newVehicule.fxml");
     }
 
-    public void displayMainWindow() throws IOException {
+    public void mainMenu() throws IOException{
+        changeView("start.fxml");
+    }
+
+    public void changeView(String fxml) throws IOException {
         Stage stage = (Stage) nameField.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(fxml));
         stage.setScene(new Scene(root, 700, 600));
         stage.show();
     }
@@ -211,4 +303,5 @@ public class Controller {
     public void displayCancelEdit() throws IOException{
         enableEditMode(false, true);
     }
+
 }
