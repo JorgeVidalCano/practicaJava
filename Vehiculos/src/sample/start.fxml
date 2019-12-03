@@ -45,7 +45,7 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="inputs" layoutX="31.0" layoutY="308.0" prefHeight="200.0" prefWidth="650.0">
+      <Pane fx:id="inputs" layoutX="31.0" layoutY="308.0" prefHeight="220.0" prefWidth="650.0">
          <children>
             <GridPane prefHeight="200.0" prefWidth="650.0">
                <columnConstraints>
@@ -56,6 +56,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                </rowConstraints>
@@ -84,6 +85,12 @@
                   <TextField fx:id="webField" editable="false" styleClass="generalTagsInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="priceField" editable="false" layoutX="94.0" layoutY="20.0" styleClass="generalTagsInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="descriptionField" editable="false" layoutX="94.0" layoutY="110.0" prefHeight="59.0" prefWidth="566.0" styleClass="generalTagsInput" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+                  <Label fx:id="imageLabel" text="Imagen:" visible="false" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="imgName" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>
