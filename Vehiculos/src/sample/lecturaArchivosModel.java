@@ -26,22 +26,22 @@ public class lecturaArchivosModel {
 
     private final static String folder = "Informacion";
     private ArrayList<String> docsXml = new ArrayList<>();
-    private ArrayList<ArrayList<String>> todosVehiculos = new ArrayList<>();
+    private ArrayList<Vehicle> todosVehiculos = new ArrayList<>();
 
     public lecturaArchivosModel(){
-        this.docsXml = selectXMLs();
+        this.docsXml = selectFiles(".xml");
     }
 
     public ArrayList<String> getIds(){
         // returns only the ids
         ArrayList<String> onlyIds= new ArrayList<>();
         for(int i = 0; i < this.todosVehiculos.size(); i++){
-            onlyIds.add(this.todosVehiculos.get(i).get(1));
+            onlyIds.add(this.todosVehiculos.get(i).getIdVeh());
         }
         return onlyIds;
     }
 
-    public void registrationNewVehicule (String idVeh, String updatable, String name, String description, String price, String web, String imagen) throws ParserConfigurationException, TransformerException {
+    public void registrationNewVehicle (String idVeh, String updatable, String name, String description, String price, String web, String imagen) throws ParserConfigurationException, TransformerException {
         // Writes a new xml with a new vehicle
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -83,8 +83,6 @@ public class lecturaArchivosModel {
         StreamResult streamResult = new StreamResult(path.toFile() + "/" + name + ".xml");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.transform(domSource, streamResult);
-
-        System.out.println("New vehicle registered");
     }
 
     public void upDateVehicle (String fileName, String name, String description, String price, String web, String imagen) throws ParserConfigurationException, IOException, SAXException {
@@ -101,16 +99,10 @@ public class lecturaArchivosModel {
             Document doc = builder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
-            /*NodeList vehicles = doc.getElementsByTagName("camper");
-            Element veh = null;
-            veh  = (Element) vehicles.item(0);
-
-            Node e = veh.getElementsByTagName().item(0).getFirstChild();
-            e.setNodeValue("it was successful");*/
             for (int i = 0; i < newDataVej.length; i++) {
                 if(newDataVej[i] != null) {
-                    System.out.println(tags[i] + " space " + newDataVej[i]);
-                    updateElementVehicule(doc, tags[i], newDataVej[i]);
+                    //System.out.println(tags[i] + " " + newDataVej[i]);
+                    updateElementVehicle(doc, tags[i], newDataVej[i]);
                 }
             }
             doc.getDocumentElement().normalize();
@@ -123,11 +115,11 @@ public class lecturaArchivosModel {
 
         }catch (SAXException | ParserConfigurationException | IOException | TransformerException e) {
             e.printStackTrace();
-            System.out.println("Something went wrong whiles updating.\n" + e);
+            System.out.println("Something went wrong while updating.\n" + e);
         }
     }
 
-    private static void updateElementVehicule(Document doc, String nameTag, String dataVeh){
+    private static void updateElementVehicle(Document doc, String nameTag, String dataVeh){
         NodeList vehicles = doc.getElementsByTagName("camper");
         Element veh = null;
         veh  = (Element) vehicles.item(0);
@@ -135,8 +127,8 @@ public class lecturaArchivosModel {
         e.setNodeValue(dataVeh);
     }
 
-    public ArrayList<ArrayList<String>> getVehicules() throws ParserConfigurationException, SAXException, TransformerException, IOException {
-        // return all cars in an arraylist<arraylist<String>>
+    public ArrayList<Vehicle> getVehicles() throws ParserConfigurationException, SAXException, TransformerException, IOException {
+        // return all cars in an arraylist<Vehicle>
         for (String filename:this.docsXml) {
             Path path = Paths.get(filename);
             todosVehiculos.add(readFromFile(path));
@@ -144,7 +136,7 @@ public class lecturaArchivosModel {
         return todosVehiculos;
     }
 
-    private ArrayList<String> selectXMLs(){
+    private ArrayList<String> selectFiles(String tipeFile){
         // Reads only the xmls in the folder, returns arraylist<String> with the routes
         File folder = new File(this.folder);
 
@@ -152,7 +144,8 @@ public class lecturaArchivosModel {
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     try {
-                        if (String.valueOf(filePath).endsWith(".xml")){
+                        //if (String.valueOf(filePath).endsWith(tipeFile)){
+                        if (String.valueOf(filePath).endsWith(tipeFile)){
                             docsXml.add(String.valueOf(filePath));
                             //System.out.println(filePath); //debugging
                         }
@@ -165,22 +158,31 @@ public class lecturaArchivosModel {
             e.printStackTrace();
         }
         if (docsXml.isEmpty()){
-            // TODO throw an exception if I have time
-            docsXml.add("No vehicules");
+            docsXml.add("No vehicles");
             return docsXml;
         }
         return docsXml;
     }
 
-    private static ArrayList<String> readFromFile(Path path) throws ParserConfigurationException, IOException, SAXException {
-        // Gets each car and returns an array that will later be added to another arraylist.
-        ArrayList<String> vehicle = new ArrayList<>();
+    private static Vehicle readFromFile(Path path) throws ParserConfigurationException, IOException, SAXException {
+        // Gets each car and returns a vehicle object that will later be added to another arraylist.
+
+        String fileName = "";
+        String imgName = "";
+        String updatable = "";
+        String idVeh = "";
+        String name = "";
+        String description = "";
+        String price = "";
+        String web = "";
+        String image = "";
+
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
 
         Document document = builder.parse(path.toFile());
         document.getDocumentElement().normalize();
-        Element root = document.getDocumentElement();
+        Element root = document.getDocumentElement(); ///////////////////////////////////////////// Delete
         NodeList nList = document.getElementsByTagName("camper");
 
         for (int t = 0; t < nList.getLength(); t++){
@@ -188,22 +190,23 @@ public class lecturaArchivosModel {
             if (node.getNodeType() == Node.ELEMENT_NODE){
                 Element datoVehiculo = (Element) node;
 
-                vehicle.add(path.toFile().getName());
-                vehicle.add(String.valueOf(datoVehiculo.getAttribute("id")));
-                vehicle.add(datoVehiculo.getAttribute("updatable"));
-                vehicle.add(datoVehiculo.getElementsByTagName("name").item(0).getTextContent());
+                fileName = path.toFile().getName();
+                idVeh = String.valueOf(datoVehiculo.getAttribute("id"));
+                updatable = datoVehiculo.getAttribute("updatable");
+                name = datoVehiculo.getElementsByTagName("name").item(0).getTextContent();
 
-                String parrafo = "";
+                //String parrafo = "";
                 for (int i=0; i < datoVehiculo.getElementsByTagName("p").getLength(); i++) {
-                    parrafo += datoVehiculo.getElementsByTagName("p").item(i).getTextContent() + "\n";
-                    //System.out.println("P:  " + datoVehiculo.getElementsByTagName("p").item(i).getTextContent());
+                    description += datoVehiculo.getElementsByTagName("p").item(i).getTextContent() + "\n";
                 }
-                vehicle.add(parrafo);
-                vehicle.add(datoVehiculo.getElementsByTagName("price").item(0).getTextContent());
-                vehicle.add(datoVehiculo.getElementsByTagName("web").item(0).getTextContent());
-                vehicle.add(datoVehiculo.getElementsByTagName("image").item(0).getTextContent());
+                //description = parrafo;
+                price = datoVehiculo.getElementsByTagName("price").item(0).getTextContent();
+                web = datoVehiculo.getElementsByTagName("web").item(0).getTextContent();
+                image = datoVehiculo.getElementsByTagName("image").item(0).getTextContent();
+                imgName = datoVehiculo.getElementsByTagName("image").item(0).getTextContent();
             }
         }
+        Vehicle vehicle = new Vehicle(fileName, imgName, updatable, idVeh, name, description, price, web, image);
         return vehicle;
     }
 

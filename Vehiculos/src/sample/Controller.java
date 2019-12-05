@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +23,6 @@ import javax.xml.transform.TransformerException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +32,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
 
 import static java.lang.Integer.valueOf;
@@ -55,7 +56,7 @@ public class Controller {
     private javafx.scene.control.TextField priceField;
 
     @FXML
-    private javafx.scene.image.ImageView imagenField;  //Image imageField;
+    private javafx.scene.image.ImageView imagenField;
 
     @FXML
     private javafx.scene.control.TextField webField;
@@ -76,7 +77,7 @@ public class Controller {
     private HBox navigationButtons;
 
     @FXML
-    private Button startRentingButton;
+    private Button filterButton;
 
     @FXML
     private Button addNewButton;
@@ -84,18 +85,27 @@ public class Controller {
     @FXML
     private Button updatableFieldButton;
 
-    private ArrayList<ArrayList<String>> vehicles = new ArrayList();
+    private ArrayList<Vehicle> vehicles = new ArrayList();
     private static int position = 0;
+    private static int sorting = 0;
 
     public Controller () throws ParserConfigurationException, TransformerException, SAXException, IOException {
         lecturaArchivosModel Rv = new lecturaArchivosModel();
-        this.vehicles = Rv.getVehicules();
+        this.vehicles = Rv.getVehicles();
     }
 
-    private void reStartApp() throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    private void reStartApp() throws IOException{
         // Rereads the info when changes are made.
         lecturaArchivosModel Rv = new lecturaArchivosModel();
-        this.vehicles = Rv.getVehicules();
+        Log l = new Log();
+        try {
+            this.vehicles = Rv.getVehicles();
+            l.writeFile("Reading", null, "Vehicles loaded.");
+        }catch (IOException | SAXException | TransformerException | ParserConfigurationException e){
+            Window owner = addNewButton.getScene().getWindow();
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Something happened while reading the files.");
+            l.writeFile("Error", null, String.valueOf(e));
+        }
         showFirstVehicule();
     }
 
@@ -136,18 +146,19 @@ public class Controller {
         printLabels(this.vehicles.get(position));
     }
 
-    private void printLabels(ArrayList<String> vehicle) throws FileNotFoundException {
+    private void printLabels(Vehicle vehicle) throws IOException {
         // Prints the vehicle information return in each situation
-        fileName = vehicle.get(0);
-        imgName.setText(vehicle.get(7));
-        updatableFieldButton.setDisable(!Boolean.parseBoolean(vehicle.get(2)));
-        idField.setText(vehicle.get(1));
-        nameField.setText(vehicle.get(3));
-        descriptionField.setText(vehicle.get(4));
-        priceField.setText(vehicle.get(5));
+
+        fileName = vehicle.getFileName();
+        updatableFieldButton.setDisable(!Boolean.parseBoolean(vehicle.getUpdatable()));
+        imgName.setText(vehicle.getImgName());
+        idField.setText(vehicle.getIdVeh());
+        nameField.setText(vehicle.getName());
+        descriptionField.setText(vehicle.getDescription());
+        priceField.setText(vehicle.getPrice());
 
         try {
-            FileInputStream input = new FileInputStream("Informacion/" + vehicle.get(7));
+            FileInputStream input = new FileInputStream("Informacion/" + vehicle.getImgName());
             Image image = new Image(input);
             imagenField.setImage(image);
         }catch (java.io.FileNotFoundException e){
@@ -156,17 +167,39 @@ public class Controller {
             FileInputStream input = new FileInputStream("Informacion/no-imagen.png");
             Image image = new Image(input);
             imagenField.setImage(image);
+            Log l = new Log();
+            l.writeFile("Error", null, String.valueOf(e));
         }
-        webField.setText(vehicle.get(6));
+        webField.setText(vehicle.getWeb());
     }
 
-    public void handleSortMethod(String method){
-        sortById("id");
-    }
+    public void handleSortingMethod(ActionEvent actionEvent) throws IOException {
 
-    private void sortById(String method){
-        // do it in lecturaArchivosModel
-        //Collections.sort(this.vehicles.get(0));
+        if(nameField.getText().isEmpty()){
+            System.out.println("empty");
+            return;
+        }
+        Log l = new Log();
+        if(sorting == 0) {
+            sorting += 1;
+            Comparator<Vehicle> sortId = Comparator.comparingInt(Vehicle::getIdSort);
+            this.vehicles.sort(sortId);
+            filterButton.setText("Id");
+            l.writeFile("Sorting", null, "Id");
+        } else if (sorting == 1){
+            sorting += 1;
+            Comparator<Vehicle> sortName = Comparator.comparing((Vehicle v) -> v.getName().toLowerCase());
+            this.vehicles.sort(sortName);
+            filterButton.setText("Name");
+            l.writeFile("Sorting", null, "Name");
+        } else if (sorting == 2) {
+            sorting = 0;
+            Comparator<Vehicle> sortPrice = Comparator.comparingInt(Vehicle::getPriceSort);
+            this.vehicles.sort(sortPrice);
+            filterButton.setText("Price");
+            l.writeFile("Sorting", null, "Price");
+        }
+        showFirstVehicule();
     }
 
     public void handleFirstVehicule(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -188,7 +221,6 @@ public class Controller {
     public void handleRegistrationNewVehicule(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, IOException, SAXException, TransformerException{
         // Creates a new vehicle
 
-        //TODO import imagen
         String idVeh;
 
         lecturaArchivosModel Rv = new lecturaArchivosModel();
@@ -220,9 +252,11 @@ public class Controller {
         }
 
         idVeh = selectUniqueId();
-        Rv.registrationNewVehicule(idVeh, toString().valueOf(updatableField.isSelected()), nameField.getText(), descriptionField.getText(), priceField.getText(), webField.getText(), imgName.getText());
+        Rv.registrationNewVehicle(idVeh, toString().valueOf(updatableField.isSelected()), nameField.getText(), descriptionField.getText(), priceField.getText(), webField.getText(), imgName.getText());
 
         AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "New vehicle added", "The vehicle has been successfully added.\nName: " + nameField.getText());
+        Log l = new Log();
+        l.writeFile("New vehicle added.", idVeh, null);
         changeView("start.fxml");
     }
 
@@ -236,30 +270,39 @@ public class Controller {
 
         lecturaArchivosModel Rv = new lecturaArchivosModel();
 
-        if(!nameField.getText().equals(this.vehicles.get(position).get(3))){
+        if(!nameField.getText().equals(this.vehicles.get(position).getName())){
             newName = nameField.getText();
         }
-        if(!descriptionField.getText().equals(this.vehicles.get(position).get(4))){
+        if(!descriptionField.getText().equals(this.vehicles.get(position).getDescription())){
             newDescription = descriptionField.getText();
         }
-        if(!priceField.getText().equals(this.vehicles.get(position).get(5))){
+        if(!priceField.getText().equals(this.vehicles.get(position).getPrice())){
             newPrice = priceField.getText();
         }
-        if(!webField.getText().equals(this.vehicles.get(position).get(6))){
+        if(!isPrice(priceField.getText())){
+            Window owner = addNewButton.getScene().getWindow();
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error", "Please enter just numbers and no decimals.\nNo currency needed.");
+            return;
+        }
+
+        if(!webField.getText().equals(this.vehicles.get(position).getWeb())){
             newWeb = webField.getText();
         }
-        if(!imgName.getText().equals(this.vehicles.get(position).get(7))){
+        if(!imgName.getText().equals(this.vehicles.get(position).getImgName())){
             newImage = imgName.getText();
         }
 
         Rv.upDateVehicle(fileName, newName, newDescription, newPrice, newWeb, newImage);
         enableEditMode(false, true);
         reStartApp();
+        Window owner = editButtons.getScene().getWindow();
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "New vehicle updated", "The " + nameField.getText() + " has been successfully updated." );
+        Log l = new Log();
+        l.writeFile("Updated vehicle", idField.getText(), null);
     }
 
-    public void handleDeleteVehicle(javafx.event.ActionEvent actionEvent) throws ParserConfigurationException, TransformerException, SAXException, IOException {
+    public void handleDeleteVehicle(javafx.event.ActionEvent actionEvent) throws IOException {
         // deletes the xml and png.
-        // TODO change img field to the real one. Right now is a substitution
         Window owner = editButtons.getScene().getWindow();
 
         if(nameField.getText().isEmpty()){
@@ -273,40 +316,28 @@ public class Controller {
             return;
         }
 
+        String idVeh = idField.getText();
         File xmlFile = new File("Informacion/"+ fileName);
+        Log l = new Log();
 
-        if (xmlFile.delete()) {
-            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Vehicle delete", fileName + " has been successfully deleted.");
-            reStartApp();
-        } else {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle error", " something went wrong deleting " + fileName);
-        }
-
-        // Only need it if img has to be deleted
-        //String imgName = this.vehicles.get(position).get(7);
-        //File imgFile = new File("Informacion/"+ imgName);
-        /*if (this.vehicles.get(position).get(7).equals("no-imagen.png")) {
+        try{
             if (xmlFile.delete()) {
                 AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Vehicle delete", fileName + " has been successfully deleted.");
+                l.writeFile("Deleted vehicle", idVeh, null);
                 reStartApp();
-            } else {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle error", " something went wrong deleting " + fileName);
             }
-        }else{
-            if (xmlFile.delete() & imgFile.delete()) {
-                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Vehicle delete", fileName + " has been successfully deleted.");
-                reStartApp();
-            } else {
+        }catch (Exception e){
                 AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle error", " something went wrong deleting " + fileName);
-            }
-        }*/
+                l.writeFile("Error", null, String.valueOf(e));
+        }
+
     }
 
     private String selectUniqueId() throws ParserConfigurationException, TransformerException, SAXException, IOException {
         int idveh = 1;
 
         lecturaArchivosModel Rv = new lecturaArchivosModel();
-        Rv.getVehicules();
+        Rv.getVehicles();
 
         while(Rv.getIds().contains(String.valueOf(idveh))) {
             idveh += 1;
@@ -347,7 +378,7 @@ public class Controller {
         stage.show();
     }
 
-    public void displayEdit () throws IOException{
+    public void displayEdit () {
         if (nameField.getText().isEmpty()){
             Window owner = editButtons.getScene().getWindow();
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Vehicle update", "No vehicle has been selected yet.");
@@ -356,8 +387,8 @@ public class Controller {
         enableEditMode(true, false);
     }
 
-    public void displayCancelEdit() throws IOException{
+    public void displayCancelEdit() {
         enableEditMode(false, true);
-}
+    }
 
 }
