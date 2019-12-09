@@ -1,20 +1,9 @@
-2019/DECEMBER/9 16:45 Tipo: Sorting Mensaje: Id
-2019/DECEMBER/9 16:45 Tipo: Sorting Mensaje: Name
-2019/DECEMBER/9 16:45 Tipo: Sorting Mensaje: Price
-2019/DECEMBER/9 16:45 Tipo: Reading Mensaje: Vehicles loaded.
-2019/DECEMBER/9 16:45 Tipo: Updated vehicle id vehicle: 2
-2019/DECEMBER/9 16:46 Tipo: New vehicle added. id vehicle: 6
-2019/DECEMBER/9 16:46 Tipo: Reading Mensaje: Vehicles loaded.
-2019/DECEMBER/9 16:46 Tipo: Updated vehicle id vehicle: 2
-2019/DECEMBER/9 16:46 Tipo: Deleted vehicle id vehicle: 6
-2019/DECEMBER/9 16:46 Tipo: Reading Mensaje: Vehicles loaded.
-2019/DECEMBER/9 17:2 Tipo: Reading Mensaje: Vehicles loaded.
-2019/DECEMBER/9 17:2 Tipo: Updated vehicle id vehicle: 2
-2019/DECEMBER/9 17:2 Tipo: Reading Mensaje: Vehicles loaded.
-2019/DECEMBER/9 17:2 Tipo: Updated vehicle id vehicle: 2
-2019/DECEMBER/9 17:2 Tipo: Reading Mensaje: Vehicles loaded.
-2019/DECEMBER/9 17:2 Tipo: Updated vehicle id vehicle: 2
-2019/DECEMBER/9 17:3 Tipo: Error Mensaje: No enough permissions to update this file.º
-2019/DECEMBER/9 17:3 Tipo: New vehicle added. id vehicle: 6
-2019/DECEMBER/9 17:3 Tipo: Error Mensaje: No enough permissions to update this file.º
-2019/DECEMBER/9 17:11 Tipo: Error Mensaje: No enough permissions to update hola
+2019/DECEMBER/9 19:43 Tipo: New vehicle added. id vehicle: 6
+2019/DECEMBER/9 19:44 Tipo: Reading Mensaje: Vehicles loaded.
+2019/DECEMBER/9 19:44 Tipo: Updated vehicle id vehicle: 2
+2019/DECEMBER/9 19:46 Tipo: Error Mensaje: No enough permissions to update furgoneta
+2019/DECEMBER/9 19:47 Tipo: Deleted vehicle id vehicle: 6
+2019/DECEMBER/9 19:47 Tipo: Reading Mensaje: Vehicles loaded.
+2019/DECEMBER/9 19:48 Tipo: Sorting Mensaje: Id
+2019/DECEMBER/9 19:51 Tipo: Sorting Mensaje: Id
+2019/DECEMBER/9 19:51 Tipo: Sorting Mensaje: Name

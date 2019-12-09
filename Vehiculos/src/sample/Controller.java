@@ -169,6 +169,7 @@ public class Controller {
             System.out.println("empty");
             return;
         }
+        Window owner = editButtons.getScene().getWindow();
         Log l = new Log();
         if(sorting == 0) {
             sorting += 1;
@@ -176,18 +177,21 @@ public class Controller {
             this.vehicles.sort(sortId);
             filterButton.setText("Id");
             l.writeFile("Sorting", null, "Id");
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "New sorting", "Sort by id.");
         } else if (sorting == 1){
             sorting += 1;
             Comparator<Vehicle> sortName = Comparator.comparing((Vehicle v) -> v.getName().toLowerCase());
             this.vehicles.sort(sortName);
             filterButton.setText("Name");
             l.writeFile("Sorting", null, "Name");
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "New sorting", "Sort by Name.");
         } else if (sorting == 2) {
             sorting = 0;
             Comparator<Vehicle> sortPrice = Comparator.comparingInt(Vehicle::getPriceSort);
             this.vehicles.sort(sortPrice);
             filterButton.setText("Price");
             l.writeFile("Sorting", null, "Price");
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "New sorting", "Sort by price.");
         }
         showFirstVehicule();
     }
@@ -244,9 +248,9 @@ public class Controller {
         try {
             Rv.upDateVehicle(fileName, newName, newDescription, newPrice, newWeb, newImage, Boolean.parseBoolean(this.vehicles.get(position).getUpdatable()));
             enableEditMode(false, true);
-            reStartApp();
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "New vehicle updated", "The " + nameField.getText() + " has been successfully updated.");
             l.writeFile("Updated vehicle", idField.getText(), null);
+            reStartApp();
         }catch (Exception e){
             System.out.println("Not enough permissions to update this file");
             l.writeFile("Error", null, "No enough permissions to update " + nameField.getText());

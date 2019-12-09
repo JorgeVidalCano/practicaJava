@@ -1,8 +1,5 @@
 package sample;
 
-import java.util.Comparator;
-
-//public class Vehicle implements Comparable <Vehicle> {
 public class Vehicle{
     private String fileName;
     private String imgName;
