@@ -6,14 +6,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,6 +28,10 @@ public class lecturaArchivosModel {
 
     public lecturaArchivosModel(){
         this.docsXml = selectFiles(".xml");
+    }
+
+    public ArrayList<String> getImg(){
+        return selectFiles(".png");
     }
 
     public ArrayList<String> getIds(){
@@ -85,37 +87,41 @@ public class lecturaArchivosModel {
         transformer.transform(domSource, streamResult);
     }
 
-    public void upDateVehicle (String fileName, String name, String description, String price, String web, String imagen) throws ParserConfigurationException, IOException, SAXException {
+    public void upDateVehicle (String fileName, String name, String description, String price, String web, String imagen, Boolean updatable) throws Exception {
         // Updates the xml info
-        String[] tags = {"name", "p", "price", "web", "image"};
-        String[] newDataVej = {name, description, price, web, imagen};
+        if (!updatable) {
+            throw new Exception();
+        } else {
+            String[] tags = {"name", "p", "price", "web", "image"};
+            String[] newDataVej = {name, description, price, web, imagen};
 
-        File xmlFile = new File("Informacion/" + fileName);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
+            File xmlFile = new File("Informacion/" + fileName);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder;
 
-        try {
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            doc.getDocumentElement().normalize();
+            try {
+                builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(xmlFile);
+                doc.getDocumentElement().normalize();
 
-            for (int i = 0; i < newDataVej.length; i++) {
-                if(newDataVej[i] != null) {
-                    //System.out.println(tags[i] + " " + newDataVej[i]);
-                    updateElementVehicle(doc, tags[i], newDataVej[i]);
+                for (int i = 0; i < newDataVej.length; i++) {
+                    if (newDataVej[i] != null) {
+                        //System.out.println(tags[i] + " " + newDataVej[i]);
+                        updateElementVehicle(doc, tags[i], newDataVej[i]);
+                    }
                 }
-            }
-            doc.getDocumentElement().normalize();
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(xmlFile);
-            transformer.transform(source, result);
-            System.out.println("Updated.");
+                doc.getDocumentElement().normalize();
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(xmlFile);
+                transformer.transform(source, result);
+                System.out.println("Updated.");
 
-        }catch (SAXException | ParserConfigurationException | IOException | TransformerException e) {
-            e.printStackTrace();
-            System.out.println("Something went wrong while updating.\n" + e);
+            } catch (SAXException | ParserConfigurationException | IOException | TransformerException e) {
+                e.printStackTrace();
+                System.out.println("Something went wrong while updating.\n" + e);
+            }
         }
     }
 
@@ -127,7 +133,7 @@ public class lecturaArchivosModel {
         e.setNodeValue(dataVeh);
     }
 
-    public ArrayList<Vehicle> getVehicles() throws ParserConfigurationException, SAXException, TransformerException, IOException {
+    public ArrayList<Vehicle> getVehicles() throws ParserConfigurationException, SAXException, IOException {
         // return all cars in an arraylist<Vehicle>
         for (String filename:this.docsXml) {
             Path path = Paths.get(filename);
@@ -137,17 +143,15 @@ public class lecturaArchivosModel {
     }
 
     private ArrayList<String> selectFiles(String tipeFile){
-        // Reads only the xmls in the folder, returns arraylist<String> with the routes
+        // Reads the type file in the folder, returns arraylist<String> with the routes
         File folder = new File(this.folder);
-
+        ArrayList<String> files = new ArrayList<>();
         try(Stream<Path> paths = Files.walk(Paths.get(String.valueOf(folder)))) {
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     try {
-                        //if (String.valueOf(filePath).endsWith(tipeFile)){
                         if (String.valueOf(filePath).endsWith(tipeFile)){
-                            docsXml.add(String.valueOf(filePath));
-                            //System.out.println(filePath); //debugging
+                            files.add(String.valueOf(filePath));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -157,11 +161,11 @@ public class lecturaArchivosModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (docsXml.isEmpty()){
-            docsXml.add("No vehicles");
-            return docsXml;
+        if (files.isEmpty()){
+            files.add("No vehicles");
+            return files;
         }
-        return docsXml;
+        return files;
     }
 
     private static Vehicle readFromFile(Path path) throws ParserConfigurationException, IOException, SAXException {
@@ -182,29 +186,31 @@ public class lecturaArchivosModel {
 
         Document document = builder.parse(path.toFile());
         document.getDocumentElement().normalize();
-        Element root = document.getDocumentElement(); ///////////////////////////////////////////// Delete
         NodeList nList = document.getElementsByTagName("camper");
+        try {
+            for (int t = 0; t < nList.getLength(); t++) {
+                Node node = nList.item(t);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element datoVehiculo = (Element) node;
 
-        for (int t = 0; t < nList.getLength(); t++){
-            Node node = nList.item(t);
-            if (node.getNodeType() == Node.ELEMENT_NODE){
-                Element datoVehiculo = (Element) node;
+                    fileName = path.toFile().getName();
+                    idVeh = String.valueOf(datoVehiculo.getAttribute("id"));
+                    updatable = datoVehiculo.getAttribute("updatable");
+                    name = datoVehiculo.getElementsByTagName("name").item(0).getTextContent();
 
-                fileName = path.toFile().getName();
-                idVeh = String.valueOf(datoVehiculo.getAttribute("id"));
-                updatable = datoVehiculo.getAttribute("updatable");
-                name = datoVehiculo.getElementsByTagName("name").item(0).getTextContent();
+                    for (int i = 0; i < datoVehiculo.getElementsByTagName("p").getLength(); i++) {
+                        description += datoVehiculo.getElementsByTagName("p").item(i).getTextContent() + "\n";
+                    }
 
-                //String parrafo = "";
-                for (int i=0; i < datoVehiculo.getElementsByTagName("p").getLength(); i++) {
-                    description += datoVehiculo.getElementsByTagName("p").item(i).getTextContent() + "\n";
+                    price = datoVehiculo.getElementsByTagName("price").item(0).getTextContent();
+                    web = datoVehiculo.getElementsByTagName("web").item(0).getTextContent();
+                    image = datoVehiculo.getElementsByTagName("image").item(0).getTextContent();
+                    imgName = datoVehiculo.getElementsByTagName("image").item(0).getTextContent();
                 }
-                //description = parrafo;
-                price = datoVehiculo.getElementsByTagName("price").item(0).getTextContent();
-                web = datoVehiculo.getElementsByTagName("web").item(0).getTextContent();
-                image = datoVehiculo.getElementsByTagName("image").item(0).getTextContent();
-                imgName = datoVehiculo.getElementsByTagName("image").item(0).getTextContent();
             }
+        }catch (NullPointerException e){
+            Log l = new Log();
+            l.writeFile("Error", null, String.valueOf(e) + ". El archivo está corrupto.");
         }
         Vehicle vehicle = new Vehicle(fileName, imgName, updatable, idVeh, name, description, price, web, image);
         return vehicle;

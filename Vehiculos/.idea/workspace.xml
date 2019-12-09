@@ -2,18 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/NewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Informacion/Airstream.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/Roadtrek.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Informacion/Roadtrek.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/aa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/imagen principal.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/mercedes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Informacion/mercedes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/newell.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Informacion/newell.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/META-INF/Vehiculos.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/AlertHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/AlertHelper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/lecturaArchivosModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/lecturaArchivosModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/newVehicule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/newVehicule.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/sample.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Log.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/lecturaArchivosModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/lecturaArchivosModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/newVehicule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/newVehicule.fxml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,8 +73,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -85,6 +92,11 @@
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -93,7 +105,6 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
@@ -103,29 +114,26 @@
     <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos\Informacion" />
-      <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos\src\sample" />
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="sample" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos" />
       <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos\src\sample\Informacion" />
       <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos\src\sample" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos\Informacion" />
+      <recent name="C:\Users\Jorge\IdeaProjects\Vehiculos\src\sample" />
+    </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -137,12 +145,6 @@
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
-    </configuration>
-    <configuration default="true" type="Applet">
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
@@ -198,6 +200,18 @@
       </method>
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -218,6 +232,15 @@
       <workItem from="1575041891577" duration="1994000" />
       <workItem from="1575043925132" duration="12362000" />
       <workItem from="1575113614834" duration="16633000" />
+      <workItem from="1575199095393" duration="12689000" />
+      <workItem from="1575218855756" duration="13739000" />
+      <workItem from="1575300133985" duration="12055000" />
+      <workItem from="1575361117692" duration="31452000" />
+      <workItem from="1575476759575" duration="11245000" />
+      <workItem from="1575534444179" duration="12923000" />
+      <workItem from="1575553779949" duration="3719000" />
+      <workItem from="1575828487118" duration="9240000" />
+      <workItem from="1575905473573" duration="2092000" />
     </task>
     <servers />
   </component>
@@ -229,7 +252,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -238,5 +263,59 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="765" y="220" key="#com.intellij.ide.util.MemberChooser" timestamp="1575477915098">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="220" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1575477915098" />
+    <state x="756" y="404" width="408" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1575388392245">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="756" y="404" width="408" height="240" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1575388392245" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1575386241538">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1575386241538" />
+    <state width="1877" height="246" key="GridCell.Tab.0.bottom" timestamp="1575907328086">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328086" />
+    <state width="1877" height="246" key="GridCell.Tab.0.center" timestamp="1575907328086">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="246" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328086" />
+    <state width="1877" height="246" key="GridCell.Tab.0.left" timestamp="1575907328085">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="246" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328085" />
+    <state width="1877" height="246" key="GridCell.Tab.0.right" timestamp="1575907328086">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="246" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328086" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1575410786989">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575410786989" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1575410786989">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575410786989" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1575410786989">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575410786989" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1575410786989">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575410786989" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1575841346607">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575841346607" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1575838013684">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575838013684" />
   </component>
 </project>
