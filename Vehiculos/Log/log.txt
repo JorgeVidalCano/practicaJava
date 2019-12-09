@@ -17,3 +17,4 @@
 2019/DECEMBER/9 17:3 Tipo: Error Mensaje: No enough permissions to update this file.º
 2019/DECEMBER/9 17:3 Tipo: New vehicle added. id vehicle: 6
 2019/DECEMBER/9 17:3 Tipo: Error Mensaje: No enough permissions to update this file.º
+2019/DECEMBER/9 17:11 Tipo: Error Mensaje: No enough permissions to update hola

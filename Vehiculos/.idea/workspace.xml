@@ -2,24 +2,52 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/sample/NewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Informacion/Roadtrek.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Informacion/Roadtrek.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Informacion/aa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Informacion/imagen principal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Informacion/mercedes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Informacion/mercedes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Informacion/newell.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Informacion/newell.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/META-INF/Vehiculos.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/AlertHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/AlertHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/lecturaArchivosModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/lecturaArchivosModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/newVehicule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/newVehicule.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vehiculos/sample/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/lecturaArchivosModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/lecturaArchivosModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/newVehicule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/newVehicule.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/Airstream.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/Roadtrek.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/Skydancer.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/Thor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/airstream.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/hola.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/itasca.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/mercedes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/mercedes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/newell.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/newell.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/no-imagen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/roadtrek.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informacion/thor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Log/log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vehiculos.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFxApplication/sample/sample.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/AlertHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Log.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/NewController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/Vehicle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/lecturaArchivosModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/newVehicule.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/sample.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vehiculos/sample/start.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/AlertHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Log.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/NewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Vehicle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/lecturaArchivosModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/newVehicule.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/start.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +268,7 @@
       <workItem from="1575534444179" duration="12923000" />
       <workItem from="1575553779949" duration="3719000" />
       <workItem from="1575828487118" duration="9240000" />
-      <workItem from="1575905473573" duration="2092000" />
+      <workItem from="1575905473573" duration="4436000" />
     </task>
     <servers />
   </component>
@@ -277,22 +305,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1575386241538" />
-    <state width="1877" height="246" key="GridCell.Tab.0.bottom" timestamp="1575907328086">
+    <state width="1877" height="246" key="GridCell.Tab.0.bottom" timestamp="1575911992405">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328086" />
-    <state width="1877" height="246" key="GridCell.Tab.0.center" timestamp="1575907328086">
+    <state width="1877" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575911992405" />
+    <state width="1877" height="246" key="GridCell.Tab.0.center" timestamp="1575911992404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="246" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328086" />
-    <state width="1877" height="246" key="GridCell.Tab.0.left" timestamp="1575907328085">
+    <state width="1877" height="246" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575911992404" />
+    <state width="1877" height="246" key="GridCell.Tab.0.left" timestamp="1575911992404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="246" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328085" />
-    <state width="1877" height="246" key="GridCell.Tab.0.right" timestamp="1575907328086">
+    <state width="1877" height="246" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575911992404" />
+    <state width="1877" height="246" key="GridCell.Tab.0.right" timestamp="1575911992404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="246" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575907328086" />
+    <state width="1877" height="246" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575911992404" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1575410786989">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
